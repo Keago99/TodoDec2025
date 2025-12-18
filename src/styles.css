@@ -3,3 +3,27 @@
 body{
     background-color: pink;
 }
+
+.headerDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Project{
+    Width: 400px;
+    background-color: lightskyblue;
+    border: 2px solid;
+}
+
+.buttonDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+}
+
+.orangeButton{
+    color: orange;
+    background-color: lightcoral;
+}
