@@ -35,4 +35,4 @@ function createProject(name){
 
 
 
-export { createProject, getProjects, addProject };
+export { createProject, getProjects, addProject, projects };

@@ -2,19 +2,20 @@
 import { createProject } from "./project.js"
 import { getProjects } from "./project.js"
 
+// Used in multiple funcitons, moved to top of file
+const todoDialog = document.querySelector("#addTodoDialog");
 
 // Creates the project HTML element (singular)
 const createProjectDiv = (Project) => {
     return`
     <div class="Project">
         <h1>${Project.getName()}</h1>
-        <p>project name: <span>${Project.getName()}</span>
-        <div class="todoArea" data-project-id="${Project.getID()}>
+        <div class="todoArea" data-project-id="${Project.getID()}">
             <br>
         </div>
-        <button type="button">
-            Add Task!
-        </button>
+        <div class="buttonDiv">
+            <button type="button" class="addTodoButton"> Add Task! </button>
+        <div>
     </div>
      `
 }
@@ -29,4 +30,39 @@ const renderProject = (project) => {
     projectArea.innerHTML += projectDiv;
 }
 
-export { createProjectDiv, renderProject}; 
+const addTodoDialogOpen = () => {
+
+    todoDialog.showModal();
+}
+
+// Selects all Todo add task buttons and assigns them the task of opening the modal.
+const addTodoDialogEvents = () => {
+    const todoButtons = document.querySelectorAll(".addTodoButton");
+    const addTodoDialog = document.querySelector("#addTodoDialog");
+
+    todoButtons.forEach(button => {
+        button.addEventListener("click", function(){
+            addTodoDialog.showModal();
+        });
+    });
+}
+
+const addProjectDialogOpenEvent = () => {
+    const projectDialog = document.querySelector("#addProjectDialog");
+    const addProjectButton = document.querySelector("#addProjectButton");
+
+    addProjectButton.addEventListener("click", function(){
+        projectDialog.showModal();
+    });
+};
+
+const closeTodoDialogEvent = () =>{
+    const closeTodoDialogButton = document.querySelector("#closeTodoDialogButton");
+
+    closeTodoDialogButton.addEventListener("click", function(){
+        todoDialog.close();
+    })
+}
+
+
+export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent }; 

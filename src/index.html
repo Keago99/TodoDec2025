@@ -13,8 +13,30 @@
     </header>
     <main>
         <div class="projectArea">
-            
+
         </div>
+        <div class="addprojectArea">
+            <button type="button" id="addProjectButton">Add project!</button>
+        </div>
+        <dialog id="addTodoDialog">
+            <h1>Add a Task!</h1>
+            <form class="todoForm">
+                <label for="titleTodo">Title:</label>
+                <input type="text" id="titleTodo">
+                <label for="descriptionTodo">Description:</label>
+                <textarea id="descriptionTodo" rows="3" cols="3">
+                    Please describe your task!
+                </textarea>
+            </form>
+            <button type="button">Close</button>
+        </dialog>
+        <dialog id="addProjectDialog">
+            <h1>Add new Project</h1>
+            <form class="projectForm">
+                <label for="projectName">Project Name:</label>
+                <input type="text" id="projectName">
+            </form>
+        </dialog>
     </main>
     <footer>
         
