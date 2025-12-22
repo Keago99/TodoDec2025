@@ -1,32 +1,34 @@
 
 
-function createTodo(title, description, dueDate, priority){
+function createTodo(title, description, dueDate, priority, id = null){
 
-    const ID = crypto.randomUUID();
+    const ID =  id || crypto.randomUUID();
 
     const getID = () => ID;
 
     const getTitle = () => title;
     const setTitle = (newTitle) => {
-        newTitle = title;
+        title = Newtitle;
     };
 
     const getDescription = () => description;
     const setDescription = (newDescription) => {
-        newDescription = description
+        description = newDescription;
     };
 
     const getDueDate = () => dueDate;
     const setDueDate = (newDate) => {
-        newDate = dueDate;
+        dueDate = newDate;
     };
 
     const getPriority = () => priority;
     const setPriority = (newPriority) => {
-        newPriority = priority;
+        priority = newPriority;
     }
 
 
 
-    return { getTitle, setTitle, getDescription, setDescription, getPriority, setPriority, getID};
+    return { getTitle, setTitle, getDescription, setDescription, getPriority, setPriority, getID, getDueDate, setDueDate};
 };
+
+export { createTodo };

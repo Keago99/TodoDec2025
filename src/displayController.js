@@ -1,9 +1,11 @@
 //used to controll everything that requires setup with displays, including the creation of new html elements
 import { createProject } from "./project.js"
-import { getProjects } from "./project.js"
 
 // Used in multiple funcitons, moved to top of file
 const todoDialog = document.querySelector("#addTodoDialog");
+const projectArea = document.querySelector(".projectArea");
+
+
 
 // Creates the project HTML element (singular)
 const createProjectDiv = (Project) => {
@@ -25,9 +27,15 @@ const createProjectDiv = (Project) => {
 
 // Renders the created HTML project element in its correct place (singular)
 const renderProject = (project) => {
-    const projectArea = document.querySelector(".projectArea");
     const projectDiv = createProjectDiv(project)
     projectArea.innerHTML += projectDiv;
+}
+
+const renderAllProjects = (projectArray) => {
+    projectArea.innerHTML = "";
+    projectArray.forEach(project => {
+        renderProject(project);
+    });
 }
 
 const addTodoDialogOpen = () => {
@@ -65,4 +73,7 @@ const closeTodoDialogEvent = () =>{
 }
 
 
-export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent }; 
+export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects}; 
+
+
+// I want to turn projects into stringify, then I want to load projects after turning the string back into array
