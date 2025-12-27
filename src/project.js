@@ -26,6 +26,11 @@ function createProject(name, id = null){
 
 }
 
+//load the array of projects,
+//use the dataset to find the ID of said project,
+//delete the project
+//save the new project
 
+//Where should this be? Its deleting a project so, I'd say project
 
 export { createProject };

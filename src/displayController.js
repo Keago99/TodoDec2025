@@ -1,5 +1,6 @@
 //used to controll everything that requires setup with displays, including the creation of new html elements
-import { createProject } from "./project.js"
+import { createProject } from "./project.js";
+import { deleteProject, storeProjects, loadProjects } from "./localStorage.js";
 
 // Used in multiple funcitons, moved to top of file
 const todoDialog = document.querySelector("#addTodoDialog");
@@ -8,15 +9,16 @@ const projectArea = document.querySelector(".projectArea");
 
 
 // Creates the project HTML element (singular)
-const createProjectDiv = (Project) => {
+const createProjectDiv = (project) => {
     return`
     <div class="Project">
-        <h1>${Project.getName()}</h1>
-        <div class="todoArea" data-project-id="${Project.getID()}">
+        <h1>${project.getName()}</h1>
+        <div class="todoArea" data-project-id="${project.getID()}">
             <br>
         </div>
         <div class="buttonDiv">
             <button type="button" class="addTodoButton"> Add Task! </button>
+            <button type="button" class="deleteProjectButton" data-project-id = ${project.getID()}> Delete Project </button>
         <div>
     </div>
      `
@@ -38,8 +40,9 @@ const renderAllProjects = (projectArray) => {
     });
 }
 
-const addTodoDialogOpen = () => {
 
+
+const addTodoDialogOpen = () => {
     todoDialog.showModal();
 }
 
@@ -51,6 +54,17 @@ const addTodoDialogEvents = () => {
     todoButtons.forEach(button => {
         button.addEventListener("click", function(){
             addTodoDialog.showModal();
+        });
+    });
+}
+
+const addDeleteProjectEvents = () => {
+    const deleteProjectButtons = document.querySelectorAll(".deleteProjectButton");
+
+    deleteProjectButtons.forEach(button => {
+        button.addEventListener("click", function(){
+            deleteProject(this.dataset.projectid);
+            RenderAll();
         });
     });
 }
@@ -72,8 +86,16 @@ const closeTodoDialogEvent = () =>{
     })
 }
 
+//Create a composite function that renders all projects and then adds all events to each project
+const  RenderAll = () => {
+    let loadedProjects = loadProjects();
+    renderAllProjects(loadedProjects);
+    addTodoDialogEvents();
+    addDeleteProjectEvents();
+}
 
-export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects}; 
+
+export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents}; 
 
 
 // I want to turn projects into stringify, then I want to load projects after turning the string back into array

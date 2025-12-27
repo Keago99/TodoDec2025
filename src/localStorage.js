@@ -58,4 +58,20 @@ const loadProjects = () => {
     return reconstructedProjects;
 }
 
-export { storeProjects, loadProjects};
+const deleteProject = (projectToDeleteID) =>{
+    //loads the project
+    let projectArray = loadProjects();
+
+    //filters the array for the found ID
+    const foundIndex = projectArray.findIndex(element => element.getID() === projectToDeleteID);
+
+    //removes it from the array
+    projectArray.splice(foundIndex, 1);
+
+    //restores the stored Array
+    storeProjects(projectArray);
+}
+
+
+
+export { storeProjects, loadProjects, deleteProject};
