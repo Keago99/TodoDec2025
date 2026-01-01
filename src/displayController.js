@@ -1,5 +1,6 @@
 //used to controll everything that requires setup with displays, including the creation of new html elements
 import { createProject } from "./project.js";
+import { createTodo } from "./todo.js";
 import { deleteProject, storeProjects, loadProjects } from "./localStorage.js";
 
 // Used in multiple funcitons, moved to top of file
@@ -25,12 +26,30 @@ const createProjectDiv = (project) => {
      `
 }
 
-// A forEach that runs this previous method over all projects by using the "getProject"
+const createTodoDiv = (todo) => {
+    return`
+    <div class="insideProjectTodo>
+    <h3>${todo.getName()}<h3>
+    <p>${todo.getDescription()}<p>
+    <div class="todoButtonDiv>
+    <div type="button" class="deleteTodo">
+    </div>
+    `
+}
+
+// render the todo within the project (project ID needed)
+const renderTodo = (todo, projectID) => {
+    const todoDiv = createTodoDiv(todo);
+    const projectArea = document.querySelector(`.todoArea[data-project-id="${projectID}]`)
+
+    projectArea.appendChild(todoDiv);
+
+}
 
 
 // Renders the created HTML project element in its correct place (singular)
 const renderProject = (project) => {
-    const projectDiv = createProjectDiv(project)
+    const projectDiv = createProjectDiv(project);
     projectArea.innerHTML += projectDiv;
 }
 
