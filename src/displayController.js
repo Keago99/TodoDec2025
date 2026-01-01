@@ -4,6 +4,7 @@ import { deleteProject, storeProjects, loadProjects } from "./localStorage.js";
 
 // Used in multiple funcitons, moved to top of file
 const todoDialog = document.querySelector("#addTodoDialog");
+const addProjectDialog = document.querySelector("#addProjectDialog");
 const projectArea = document.querySelector(".projectArea");
 
 
@@ -78,6 +79,14 @@ const addProjectDialogOpenEvent = () => {
     });
 };
 
+const closeProjectAddEvent = () => {
+    const closeProjectAddButton = document.querySelector("#closeProjectDialog");
+
+    closeProjectAddButton.addEventListener("click", function(){
+        addProjectDialog.close();
+    })
+}
+
 const closeTodoDialogEvent = () =>{
     const closeTodoDialogButton = document.querySelector("#closeTodoDialogButton");
 
@@ -92,6 +101,7 @@ const  RenderAll = () => {
     renderAllProjects(loadedProjects);
     addTodoDialogEvents();
     addDeleteProjectEvents();
+    closeProjectAddEvent();
 }
 
 
