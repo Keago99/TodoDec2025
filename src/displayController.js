@@ -12,45 +12,68 @@ const projectArea = document.querySelector(".projectArea");
 
 // Creates the project HTML element (singular)
 const createProjectDiv = (project) => {
-    return`
-    <div class="Project">
-        <h1>${project.getName()}</h1>
+    const projectString = `
+        <h2>${project.getName()}</h2>
         <div class="todoArea" data-project-id="${project.getID()}">
-            <br>
         </div>
         <div class="buttonDiv">
             <button type="button" class="addTodoButton"> Add Task! </button>
             <button type="button" class="deleteProjectButton" data-project-id = ${project.getID()}> Delete Project </button>
         <div>
-    </div>
-     `
+     `;
+
+     const div = document.createElement("div");
+     div.className = "Project";
+     div.innerHTML = projectString.trim();
+
+     return div;
 }
 
 const createTodoDiv = (todo) => {
-    return`
-    <div class="insideProjectTodo>
-    <h3>${todo.getName()}<h3>
+    const todoString = `
+    <h3>${todo.getTitle()}</h3>
+    <div class="todoDescription">
     <p>${todo.getDescription()}<p>
-    <div class="todoButtonDiv>
-    <div type="button" class="deleteTodo">
+    <p>${todo.getDueDate()}<p>
+
     </div>
     `
+
+    const div  = document.createElement("div");
+    div.className = "insideProjectTodo";
+    div.innerHTML = todoString.trim();
+
+    return div;
 }
 
 // render the todo within the project (project ID needed)
-const renderTodo = (todo, projectID) => {
-    const todoDiv = createTodoDiv(todo);
-    const projectArea = document.querySelector(`.todoArea[data-project-id="${projectID}]`)
+const renderTodos = (projectArray) => {
+    const todoAreas = document.querySelectorAll(".todoArea");
 
-    projectArea.appendChild(todoDiv);
+    todoAreas.forEach(todoArea =>{
+        const projectID = todoArea.dataset.projectId;
 
+        const project = projectArray.find(project => project.getID() === projectID);
+
+        const todos = project.getTodos();
+
+        if (!todos || todos.length === 0) {
+            console.log("todos empty for this one");
+            return;
+        }
+
+        todos.forEach(todo => {
+            const todoDiv = createTodoDiv(todo);
+            todoArea.appendChild(todoDiv);
+        });
+    });
 }
-
 
 // Renders the created HTML project element in its correct place (singular)
 const renderProject = (project) => {
     const projectDiv = createProjectDiv(project);
-    projectArea.innerHTML += projectDiv;
+    
+    projectArea.appendChild(projectDiv);
 }
 
 const renderAllProjects = (projectArray) => {
@@ -98,6 +121,17 @@ const addProjectDialogOpenEvent = () => {
     });
 };
 
+const addProjectDialogEvent = () => {
+    const projectName = document.querySelector("#projectName").value;
+    
+    if(!projectName){
+        alert("no project name please re-enter!");
+        return;
+    }
+
+    const newProject = createProject(projectName);
+}
+
 const closeProjectAddEvent = () => {
     const closeProjectAddButton = document.querySelector("#closeProjectDialog");
 
@@ -121,10 +155,11 @@ const  RenderAll = () => {
     addTodoDialogEvents();
     addDeleteProjectEvents();
     closeProjectAddEvent();
+    renderTodos(loadedProjects);
 }
 
 
-export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents}; 
+export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos }; 
 
 
 // I want to turn projects into stringify, then I want to load projects after turning the string back into array

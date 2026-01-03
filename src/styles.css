@@ -14,13 +14,18 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    Width: 400px;
+    min-height: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+    Width: 300px;
     background-color: lightskyblue;
     border: 2px solid;
 }
 
 .projectArea{
-    height: 400px;
+    display: flex;
+    min-height: 400px;
+    justify-content: space-evenly;
     border: solid red 2px;
     display: flex;
     flex-wrap: wrap;
@@ -67,4 +72,31 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.insideProjectTodo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
+    width: 300px;
+    background-color: orange;
+    font-size: small;
+}
+
+.todoArea{
+    display: flex;
+    flex-direction: column;
+    height: 300px;   
+}
+
+.todoDescription{
+    margin: 0;
+
+}
+
+h3{
+    margin: 0;
+    padding: 0;
 }
