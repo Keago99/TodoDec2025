@@ -107,7 +107,7 @@ const addDeleteProjectEvents = () => {
     deleteProjectButtons.forEach(button => {
         button.addEventListener("click", function(){
             deleteProject(this.dataset.projectid);
-            RenderAll();
+            renderAll();
         });
     });
 }
@@ -149,17 +149,16 @@ const closeTodoDialogEvent = () =>{
 }
 
 //Create a composite function that renders all projects and then adds all events to each project
-const  RenderAll = () => {
+const  renderAll = () => {
     let loadedProjects = loadProjects();
     renderAllProjects(loadedProjects);
     addTodoDialogEvents();
     addDeleteProjectEvents();
-    closeProjectAddEvent();
     renderTodos(loadedProjects);
 }
 
 
-export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos }; 
+export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos, closeProjectAddEvent, renderAll }; 
 
 
 // I want to turn projects into stringify, then I want to load projects after turning the string back into array
