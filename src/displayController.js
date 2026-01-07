@@ -17,8 +17,8 @@ const createProjectDiv = (project) => {
         <div class="todoArea" data-projectid="${project.getID()}">
         </div>
         <div class="buttonDiv">
-            <button type="button" class="addTodoButton"> Add Task! </button>
-            <button type="button" class="deleteProjectButton" data-projectid = ${project.getID()}> Delete Project </button>
+            <button type="button" class="addTodoButton" data-projectid=${project.getID()}> Add Task! </button>
+            <button type="button" class="deleteProjectButton" data-projectid=${project.getID()}> Delete Project </button>
         <div>
      `;
 
@@ -93,9 +93,12 @@ const addTodoDialogOpen = () => {
 const addTodoDialogEvents = () => {
     const todoButtons = document.querySelectorAll(".addTodoButton");
     const addTodoDialog = document.querySelector("#addTodoDialog");
+    const addTodoDialogButton = document.querySelector("#addTodoDialogButton");
 
     todoButtons.forEach(button => {
         button.addEventListener("click", function(){
+            const projectId = this.dataset.projectid;
+            addTodoDialogButton.dataset.projectid = projectId;
             addTodoDialog.showModal();
         });
     });
@@ -141,7 +144,6 @@ const addProjectWithinDialog = () => {
     addProjectDialog.close();
     projectNameInput.value = '';
     renderAll();
-
 }
 
 const addProjectWithinDialogEvent = () => {
@@ -177,6 +179,3 @@ const  renderAll = () => {
 
 
 export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos, closeProjectAddEvent, renderAll, addProjectWithinDialogEvent }; 
-
-
-// I want to turn projects into stringify, then I want to load projects after turning the string back into array
