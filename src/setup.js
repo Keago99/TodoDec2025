@@ -9,11 +9,11 @@ closeProjectAddEvent();
 
 const initalProject = () => {
     let projects = loadProjects();
-    const newTodo = createTodo("testTodoName", "its a test todo!", "NOW", "priority-low");
+    const newTodo = createTodo("testTodoName", "its a test todo!", "NOW", "low");
     const startingProject = createProject("StartingProject1");
     startingProject.addTodo(newTodo);
     projects.push(startingProject);
-    const newTodo2 = createTodo("2nd test todo", "its a test todo!", "NOW", "priority-high");
+    const newTodo2 = createTodo("2nd test todo", "its a test todo!", "NOW", "high");
     const startingProject2 = createProject("2nd starting project");
     startingProject2.addTodo(newTodo2);
     projects.push(startingProject2);

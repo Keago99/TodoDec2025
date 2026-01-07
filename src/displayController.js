@@ -43,7 +43,7 @@ const createTodoDiv = (todo) => {
     div.className = "insideProjectTodo";
     div.innerHTML = todoString.trim();
 
-    div.classList.add(`${todo.getPriority()}`);
+    div.classList.add(`priority-${todo.getPriority()}`);
 
     return div;
 }
@@ -111,10 +111,6 @@ const addDeleteProjectEvents = () => {
 
     deleteProjectButtons.forEach(button => {
         button.addEventListener("click", function(){
-            console.log("Button dataset:", this.dataset);
-            console.log("projectid value:", this.dataset.projectid);
-            console.log("Type of projectid:", typeof this.dataset.projectid);
-
             const projectId = this.dataset.projectid;
             console.log("Passing to deleteProject:", projectId);
             deleteProject(this.dataset.projectid);
@@ -149,12 +145,63 @@ const addProjectWithinDialog = () => {
 }
 
 const addTodoWithinDialog = (projectID) => {
-    const todoDialogTitle = document.querySelector("#titleTodo");
-    const todoDialogDescription = document.querySelector("#descriptionTodo");
-    const todoDialogDate = document.querySelector("#dateTodo");
+    const titleEl = document.querySelector("#titleTodo");
+    const descriptionEl = document.querySelector("#descriptionTodo");
+    const dateEl = document.querySelector("#dateTodo");
+    const priorityEl = document.querySelector("#priorityTodo");
 
+    const projects = loadProjects();
+    const foundProject = projects.findIndex(element => element.getID() === projectID);
 
+    // Priority helper for validation:
+    const validateForm = (title, description, date, priority) => {
+        
+        if (!title.trim()) {
+            alert ("Title cannot be empty!");
+            return false;
+        }
 
+        if (!priority){
+            alert("Please select a priority!");
+            return false;
+        }
+
+        if (!date) {
+            alert("Please select a date!")
+            return false;
+        }
+
+        return true;
+    }
+
+    const title = titleEl.value;
+    const description  = descriptionEl.value;
+    const date = dateEl.value;
+    const priority = priorityEl.value;
+    
+    if (!validateForm(title,description,date,priority)){
+        return;
+    }
+
+    // creating a new Project from the validated inputs
+    const newTodo = createTodo(
+        titleEl.value,
+        descriptionEl.value,
+        dateEl.value,
+        priorityEl.value
+    );
+
+    foundProject.addTodo(newTodo);
+
+    storeProjects(projects);
+
+    titleEl.value = "";
+    descriptionEl.value = "";
+    dateEl.value = "";
+    priorityEl.selectedIndex = 0;
+
+    document.querySelector("#addTodoDialog").close();
+    renderAll();
 }
 
 const addProjectWithinDialogEvent = () => {
