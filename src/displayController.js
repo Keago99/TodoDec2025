@@ -1,7 +1,7 @@
 //used to controll everything that requires setup with displays, including the creation of new html elements
 import { createProject } from "./project.js";
 import { createTodo } from "./todo.js";
-import { deleteProject, storeProjects, loadProjects } from "./localStorage.js";
+import { deleteProject, storeProjects, loadProjects, addNewProject } from "./localStorage.js";
 
 // Used in multiple funcitons, moved to top of file
 const todoDialog = document.querySelector("#addTodoDialog");
@@ -14,11 +14,11 @@ const projectArea = document.querySelector(".projectArea");
 const createProjectDiv = (project) => {
     const projectString = `
         <h2>${project.getName()}</h2>
-        <div class="todoArea" data-project-id="${project.getID()}">
+        <div class="todoArea" data-projectid="${project.getID()}">
         </div>
         <div class="buttonDiv">
             <button type="button" class="addTodoButton"> Add Task! </button>
-            <button type="button" class="deleteProjectButton" data-project-id = ${project.getID()}> Delete Project </button>
+            <button type="button" class="deleteProjectButton" data-projectid = ${project.getID()}> Delete Project </button>
         <div>
      `;
 
@@ -51,7 +51,7 @@ const renderTodos = (projectArray) => {
     const todoAreas = document.querySelectorAll(".todoArea");
 
     todoAreas.forEach(todoArea =>{
-        const projectID = todoArea.dataset.projectId;
+        const projectID = todoArea.dataset.projectid;
 
         const project = projectArray.find(project => project.getID() === projectID);
 
@@ -106,11 +106,17 @@ const addDeleteProjectEvents = () => {
 
     deleteProjectButtons.forEach(button => {
         button.addEventListener("click", function(){
+            console.log("Button dataset:", this.dataset);
+            console.log("projectid value:", this.dataset.projectid);
+            console.log("Type of projectid:", typeof this.dataset.projectid);
+
+            const projectId = this.dataset.projectid;
+            console.log("Passing to deleteProject:", projectId);
             deleteProject(this.dataset.projectid);
             renderAll();
         });
     });
-}
+} 
 
 const addProjectDialogOpenEvent = () => {
     const projectDialog = document.querySelector("#addProjectDialog");
@@ -121,16 +127,28 @@ const addProjectDialogOpenEvent = () => {
     });
 };
 
-const addProjectDialogEvent = () => {
-    const projectName = document.querySelector("#projectName").value;
+const addProjectWithinDialog = () => {
+    const projectNameInput = document.querySelector('#projectName');
+    const value = projectNameInput.value.trim();    
     
-    if(!projectName){
-        alert("no project name please re-enter!");
+    
+    if(!value){
+        alert("Please enter a project name!");
         return;
     }
 
-    const newProject = createProject(projectName);
+    addNewProject(value);
+    addProjectDialog.close();
+    projectNameInput.value = '';
+    renderAll();
+
 }
+
+const addProjectWithinDialogEvent = () => {
+    const addProjectDialogButton = document.querySelector("#addProjectDialogButton");
+
+    addProjectDialogButton.addEventListener("click", addProjectWithinDialog);
+};
 
 const closeProjectAddEvent = () => {
     const closeProjectAddButton = document.querySelector("#closeProjectDialog");
@@ -158,7 +176,7 @@ const  renderAll = () => {
 }
 
 
-export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos, closeProjectAddEvent, renderAll }; 
+export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos, closeProjectAddEvent, renderAll, addProjectWithinDialogEvent }; 
 
 
 // I want to turn projects into stringify, then I want to load projects after turning the string back into array

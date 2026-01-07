@@ -65,6 +65,7 @@ const deleteProject = (projectToDeleteID) =>{
     //filters the array for the found ID
     const foundIndex = projectArray.findIndex(element => element.getID() === projectToDeleteID);
 
+    console.log(foundIndex);
     //removes it from the array
     projectArray.splice(foundIndex, 1);
 
@@ -72,6 +73,17 @@ const deleteProject = (projectToDeleteID) =>{
     storeProjects(projectArray);
 }
 
+const addNewProject = (projectName) => {
 
 
-export { storeProjects, loadProjects, deleteProject};
+    let projectArray = loadProjects();
+
+    const newProject = createProject(projectName);
+
+    projectArray.push(newProject);
+
+    storeProjects(projectArray);
+}
+
+
+export { storeProjects, loadProjects, deleteProject, addNewProject};
