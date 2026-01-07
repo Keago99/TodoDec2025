@@ -81,7 +81,6 @@ body{
     flex-direction: column;
     height: auto;
     width: 300px;
-    background-color: orange;
     font-size: small;
 }
 
@@ -94,6 +93,21 @@ body{
 .todoDescription{
     margin: 0;
 
+}
+
+.priority-low {
+    background-color: #d1fae5; /* light green */
+    border-left: 4px solid #10b981;
+}
+
+.priority-medium {
+    background-color: #fef3c7; /* light yellow */
+    border-left: 4px solid #f59e0b;
+}
+
+.priority-high {
+    background-color: #fee2e2; /* light red */
+    border-left: 4px solid #ef4444;
 }
 
 h3{

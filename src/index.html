@@ -24,9 +24,16 @@
                 <label for="titleTodo">Title:</label>
                 <input type="text" id="titleTodo">
                 <label for="descriptionTodo">Description:</label>
-                <textarea id="descriptionTodo" rows="3" cols="3">Please describe your task!</textarea>
+                <textarea id="descriptionTodo" rows="3" cols="3" placeholder="Please describe your task!"></textarea>
                 <label for="dateTodo">Date of Todo:</label>
                 <input type="date" id="dateTodo">
+                <label for ="priorityTodo">Priority:</label>
+                <select name="priorityTodo" id="priorityTodo">
+                    <option value="" disabled selected>Please select priority:</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
             </form>
             <div class="buttonDialogDiv">
                 <button type="button" id="addTodoDialogButton"> Add To do!</button>

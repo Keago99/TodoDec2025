@@ -33,15 +33,17 @@ const createTodoDiv = (todo) => {
     const todoString = `
     <h3>${todo.getTitle()}</h3>
     <div class="todoDescription">
-    <p>${todo.getDescription()}<p>
-    <p>${todo.getDueDate()}<p>
-
+    <p>${todo.getDescription()}</p>
+    <p>${todo.getDueDate()}</p>
+    <p>${todo.getPriority()}</p>
     </div>
     `
 
     const div  = document.createElement("div");
     div.className = "insideProjectTodo";
     div.innerHTML = todoString.trim();
+
+    div.classList.add(`${todo.getPriority()}`);
 
     return div;
 }
@@ -144,6 +146,15 @@ const addProjectWithinDialog = () => {
     addProjectDialog.close();
     projectNameInput.value = '';
     renderAll();
+}
+
+const addTodoWithinDialog = (projectID) => {
+    const todoDialogTitle = document.querySelector("#titleTodo");
+    const todoDialogDescription = document.querySelector("#descriptionTodo");
+    const todoDialogDate = document.querySelector("#dateTodo");
+
+
+
 }
 
 const addProjectWithinDialogEvent = () => {
