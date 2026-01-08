@@ -1,5 +1,5 @@
 import { createProject, getProjects, setProjects, addProject } from "./project";
-import {addTodoDialogEvents, renderProject, addProjectDialogOpenEvent, closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos, closeProjectAddEvent, renderAll, addProjectWithinDialogEvent } from "./displayController";
+import {addTodoDialogEvents, renderProject, addProjectDialogOpenEvent, closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos, closeProjectAddEvent, renderAll, addProjectWithinDialogEvent, addTodoDialogEvent } from "./displayController";
 import { createTodo } from "./todo";
 import { loadProjects, storeProjects } from "./localStorage";
 
@@ -19,6 +19,7 @@ const initalProject = () => {
     projects.push(startingProject2);
     console.log("inital Project added");
     storeProjects(projects);
+    addTodoDialogEvent();
 }
 
 const setup = () => {

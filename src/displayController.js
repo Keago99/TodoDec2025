@@ -151,7 +151,8 @@ const addTodoWithinDialog = (projectID) => {
     const priorityEl = document.querySelector("#priorityTodo");
 
     const projects = loadProjects();
-    const foundProject = projects.findIndex(element => element.getID() === projectID);
+    const foundProject = projects.find(element => element.getID() === projectID);
+
 
     // Priority helper for validation:
     const validateForm = (title, description, date, priority) => {
@@ -226,6 +227,15 @@ const closeTodoDialogEvent = () =>{
     })
 }
 
+const addTodoDialogEvent = () =>{
+    const addTodoDialogButton = document.querySelector("#addTodoDialogButton");
+
+    addTodoDialogButton.addEventListener("click", function(){
+        const projectID = this.dataset.projectid; // Get from button
+        addTodoWithinDialog(projectID); // Pass it here
+    });
+}
+
 //Create a composite function that renders all projects and then adds all events to each project
 const  renderAll = () => {
     let loadedProjects = loadProjects();
@@ -236,4 +246,4 @@ const  renderAll = () => {
 }
 
 
-export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos, closeProjectAddEvent, renderAll, addProjectWithinDialogEvent }; 
+export { createProjectDiv, renderProject, addTodoDialogEvents, addProjectDialogOpenEvent,closeTodoDialogEvent, renderAllProjects, addDeleteProjectEvents, renderTodos, closeProjectAddEvent, renderAll, addProjectWithinDialogEvent, addTodoDialogEvent }; 
