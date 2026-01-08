@@ -86,4 +86,19 @@ const addNewProject = (projectName) => {
 }
 
 
-export { storeProjects, loadProjects, deleteProject, addNewProject};
+const deleteTodo = (todoID) => {
+        const projects = loadProjects();
+        for (let project of projects){
+            const todos = project.getTodos();
+            const todoIndex = todos.findIndex(todo => todo.getID() === todoID);
+            if (todoIndex !== -1){
+                todos.splice(todoIndex, 1);
+                storeProjects(projects);
+                return;
+            }
+        }
+        console.log("project not found");
+        return null;
+}
+
+export { storeProjects, loadProjects, deleteProject, addNewProject, deleteTodo};

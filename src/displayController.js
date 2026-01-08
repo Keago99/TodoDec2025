@@ -1,7 +1,7 @@
 //used to controll everything that requires setup with displays, including the creation of new html elements
 import { createProject } from "./project.js";
 import { createTodo } from "./todo.js";
-import { deleteProject, storeProjects, loadProjects, addNewProject } from "./localStorage.js";
+import { deleteProject, storeProjects, loadProjects, addNewProject, deleteTodo } from "./localStorage.js";
 
 // Used in multiple funcitons, moved to top of file
 const todoDialog = document.querySelector("#addTodoDialog");
@@ -33,10 +33,11 @@ const createTodoDiv = (todo) => {
     const todoString = `
     <h3>${todo.getTitle()}</h3>
     <div class="todoDescription">
-    <p>${todo.getDescription()}</p>
-    <p>${todo.getDueDate()}</p>
-    <p>${todo.getPriority()}</p>
+    <p>Description: ${todo.getDescription()}</p>
+    <p>Date: ${todo.getDueDate()}</p>
+    <p>Priority: ${todo.getPriority()}</p>
     </div>
+    <button type="button" class="deleteTodoButton" data-todoid=${todo.getID()}>Delete todo</button>
     `
 
     const div  = document.createElement("div");
@@ -193,6 +194,7 @@ const addTodoWithinDialog = (projectID) => {
     );
 
     foundProject.addTodo(newTodo);
+    
 
     storeProjects(projects);
 
@@ -236,6 +238,18 @@ const addTodoDialogEvent = () =>{
     });
 }
 
+const addDeleteTodoEvents = () => {
+    const deleteTodoButtons = document.querySelectorAll(".deleteTodoButton");
+
+    deleteTodoButtons.forEach(button => {
+        button.addEventListener("click", function(){
+            const todoID = this.dataset.todoid;
+            deleteTodo(todoID);
+            renderAll();
+        });
+    });
+}
+
 //Create a composite function that renders all projects and then adds all events to each project
 const  renderAll = () => {
     let loadedProjects = loadProjects();
@@ -243,6 +257,7 @@ const  renderAll = () => {
     addTodoDialogEvents();
     addDeleteProjectEvents();
     renderTodos(loadedProjects);
+    addDeleteTodoEvents();
 }
 
 
